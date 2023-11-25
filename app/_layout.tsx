@@ -20,9 +20,10 @@ export default function Layout() {
                 headerTitle: (props) => (
                     <Text>Header</Text>
                 ),
-                /*  header: () => <Header />, */
+                header: () => <Header />,
                 headerTintColor: 'transparent',
                 headerBackTitleVisible: false,
-            }} />
+            }}>
+        </Stack>
     );
 }

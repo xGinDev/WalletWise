@@ -1,29 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Session } from '@supabase/supabase-js'
 import { View, StyleSheet, ImageBackground } from "react-native";
 import { Link, Stack } from "expo-router";
+import { supabase } from "../lib/supabase";
+import Auth from "../components/Auth/Auth";
 const image = { uri: 'https://blacksipqa.vteximg.com.br/arquivos/index.jpg' };
 
 export default function Page() {
+  const [session, setSession] = useState<Session | null>(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
   return (
     <View style={styles.container}>
       <Stack.Screen />
-      <View style={styles.container_login}>
-        <ImageBackground source={image} resizeMode="cover" style={styles.image} />
-        <View style={styles.sub_container_login}>
-          <Link style={styles.link} href={{ pathname: 'home' }}>Go to Home</Link>
-          <Link style={styles.link} href={{ pathname: 'settings' }}>Go to Settings</Link>
-        </View>
-      </View>
+      {session && session.user ?
+        <Link style={styles.link} href={{ pathname: 'settings' }}>Go to Settings</Link> : <Auth />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-    opacity: .4
-  },
   container: {
     flex: 1,
     backgroundColor: "#000",
@@ -37,22 +42,5 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     textAlign: 'center',
     fontWeight: "700"
-  },
-  container_login: {
-    flex: 1
-  },
-  sub_container_login: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20,
-    backgroundColor: "#fff",
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    /* height: 250, */
-    padding: 50,
-    borderTopLeftRadius: 50
   }
 });
