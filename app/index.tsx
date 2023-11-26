@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Session } from '@supabase/supabase-js'
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Link, Stack } from "expo-router";
 import { supabase } from "../lib/supabase";
 import Auth from "../components/auth/Auth";
-const image = { uri: 'https://blacksipqa.vteximg.com.br/arquivos/index.jpg' };
 
 export default function Page() {
   const [session, setSession] = useState<Session | null>(null)

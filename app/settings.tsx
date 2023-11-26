@@ -1,20 +1,13 @@
 import React from "react";
-import { View, Text } from "react-native";
-import LogoutButton from "../components/auth/LogoutButton";
-import { Redirect } from 'expo-router';
+import { View } from "react-native";
+import { Session } from '@supabase/supabase-js'
+import Account from "../components/auth/Account";
 
-const settings = () => {
-
-  const redirect = () => {
-    <Redirect href="/home" />
-    console.log('Redirect');
-
-  }
+const settings = ({ session }: { session: Session }) => {
 
   return (
     <View>
-      <LogoutButton />
-      <Text onPress={() => redirect()}>Redirect?</Text>
+      <Account session={session} />
     </View>
   );
 };
