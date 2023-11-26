@@ -1,5 +1,5 @@
-import { supabase } from '../../lib/supabase'
-import { Text } from 'react-native'
+import { TouchableOpacity, Text, View } from 'react-native'
+import { supabase } from '../../lib/supabase';
 
 export default function LogoutButton() {
 
@@ -8,8 +8,10 @@ export default function LogoutButton() {
   }
 
   return (
-    <>
-      <Text onPress={() => signOut}>Salir</Text>
-    </>
+    <View>
+      <TouchableOpacity onPress={() => signOut()}>
+        <Text>Salir</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
