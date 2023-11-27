@@ -4,7 +4,7 @@ import { Text } from 'react-native-elements';
 
 export default function Layout({ segment }) {
     if (segment === '(settings)') {
-        return <Text>Hola</Text>
+        console.log('Settings');
     }
 
     return (
